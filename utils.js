@@ -31,6 +31,18 @@ function generateGaussian(mu, sigma) {
 }
 
 /*
+  * get count number of gaussian-distributed random numbers
+  *
+  */
+function getGaussRandNums(mu, sigma, count) {
+  let nums = [];
+  for (let i = 0; i < count; i++) {
+    nums.push(generateGaussian(mu, sigma));
+  }
+  return nums;
+}
+
+/*
   * return a random, gaussian distributed number in a range [start, end)
   *
   */
@@ -40,6 +52,14 @@ function getGaussRandNumInRange(start, end, mu, sigma) {
     num = generateGaussian(mu, sigma);
   } while (num < start || num >= end);
   return num;
+}
+
+function getGaussRandNumsInRange(start, end, mu, sigma, count) {
+  let nums = [];
+  for (let i = 0; i < count; i++) {
+    nums.push(getGaussRandNumInRange(start, end, mu, sigma));
+  }
+  return nums;
 }
 
 /*
@@ -105,17 +125,16 @@ function specialGridInitFunc(
   return gridColors;
 }
 
-function initGridUniform(
+function initGridColorsUniform(
   numRows, numCols, squareSize, chosenPalette) {
   let squareColor;
-  let gridColors = Array(NUM_ROWS).fill().map(() => Array(NUM_COLS));
+  let gridColors = Array(numRows).fill().map(() => Array(numCols));
   noStroke();
   // Draw the grid of squares
   for (let y = 0; y < numRows; y++) {
     let posY = y * squareSize;
     for (let x = 0; x < numCols; x++) {
       let posX = x * squareSize;
-
       let num = getRandomNumberInRange(0, chosenPalette.length - 1);
       squareColor = chosenPalette[num];
       gridColors[y][x] = squareColor; // store initial colors
@@ -126,7 +145,7 @@ function initGridUniform(
   return gridColors;
 }
 
-function initGridGauss(
+function initGridColorsGauss(
   numRows, numCols, squareSize, chosenPalette) {
   let mu = Math.floor(chosenPalette.length / 2);
   let sigma = mu / 2;
@@ -154,7 +173,7 @@ function initGridGauss(
   * colors to the screen
   */
 function updateSquaresColors(
-  gridColors, palette, numToUpdate, numRows, numCols, squareSize
+  gridColors, gridCoords, palette, numToUpdate, numRows, numCols, squareSize
 ) {
   let transSqCoords = getRandNumsWOReplacement(0, numRows * numCols - 1, numToUpdate)
                             .map(id => [Math.floor(id / numRows), id % numCols]);
@@ -172,11 +191,35 @@ function updateSquaresColors(
   });
 }
 
+/*
+  * Updates grid colors and draws new colors to the screen according to each
+  * square's rate, contained in squareTransRates. In future will incorporate numToUpdate
+  * to limit the maximum number to update, rather than trying out the entire grid
+  *
+  */
+function updateSquaresColorsPoissRates(
+  gridColors, squareTransRates, palette, numToUpdate, numRows, numCols, squareSize) {
+  for (let y = 0; y < numRows; y++) {
+    let posY = y * squareSize;
+    for (let x = 0; x < numCols; x++) {
+      if (Math.random() < squareTransRates[y * numCols + x] / FRAME_RATE) {
+        let posX = x * squareSize;
+        let newColor = getRandomElementFromArrayExcluding(palette, gridColors[y][x]);
+        gridColors[y][x] = newColor;
+        fill(newColor);
+        rect(posX, posY, squareSize, squareSize);
+      }
+    }
+  }
+}
+
 export {
+  getGaussRandNums,
   rowMaxColor,
   specialGridInitFunc,
-  initGridUniform,
-  initGridGauss,
-  updateSquaresColors
+  initGridColorsUniform,
+  initGridColorsGauss,
+  updateSquaresColors,
+  updateSquaresColorsPoissRates
 };
 

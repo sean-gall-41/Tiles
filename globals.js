@@ -10,10 +10,10 @@ const COLOR_PALETTES = {
   "pastel_rainbow": ["#f94144","#f3722c","#f8961e","#f9844a","#f9c74f","#90be6d","#43aa8b","#4d908e","#577590","#277da1"]
 };
 
-// sometimes reverse gives a better initial state, othertimes not
-const CHOSEN_PALETTE = COLOR_PALETTES["pastel_rainbow"].reverse();
+const CHOSEN_PALETTE = COLOR_PALETTES["pastel_rainbow"];
 const FRAME_RATE = 30; // 30Hz
 const UPDATE_FREQ = 5.0; // 1Hz
+const MAX_UPDATE_FREQ = 0.5;
 const FR_UPDATE_FREQ_RATIO = Math.floor(FRAME_RATE / UPDATE_FREQ);
 const NUM_TO_UPDATE = 1;
 const SQUARE_SIZE = WIN_WIDTH / NUM_ROWS;
@@ -28,6 +28,7 @@ export {
   CHOSEN_PALETTE,
   FRAME_RATE,
   UPDATE_FREQ,
+  MAX_UPDATE_FREQ,
   FR_UPDATE_FREQ_RATIO,
   NUM_TO_UPDATE,
   SQUARE_SIZE,
