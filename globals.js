@@ -12,19 +12,17 @@ const COLOR_PALETTES = {
 
 // sometimes reverse gives a better initial state, othertimes not
 const CHOSEN_PALETTE = COLOR_PALETTES["pastel_rainbow"].reverse();
-
-let gridColors = Array(NUM_ROWS).fill().map(() => Array(NUM_COLS));
-//let squareTransRates = 
-
-let FRAME_RATE = 30; // 30Hz
-let UPDATE_FREQ = 5.0; // 1Hz
-let FR_UPDATE_FREQ_RATIO = Math.floor(FRAME_RATE / UPDATE_FREQ);
-let NUM_TO_UPDATE = 1;
-let SQUARE_SIZE = WIN_WIDTH / NUM_ROWS;
+const FRAME_RATE = 30; // 30Hz
+const UPDATE_FREQ = 5.0; // 1Hz
+const FR_UPDATE_FREQ_RATIO = Math.floor(FRAME_RATE / UPDATE_FREQ);
+const NUM_TO_UPDATE = 1;
+const SQUARE_SIZE = WIN_WIDTH / NUM_ROWS;
 
 let saveFramesArr = [];
 
 export {
+  WIN_WIDTH,
+  WIN_HEIGHT,
   NUM_ROWS,
   NUM_COLS,
   CHOSEN_PALETTE,
@@ -33,5 +31,4 @@ export {
   FR_UPDATE_FREQ_RATIO,
   NUM_TO_UPDATE,
   SQUARE_SIZE,
-  gridColors
 };
