@@ -1,10 +1,205 @@
+<!--
 <html>
   <head>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.7.0/lib/p5.js"></script>
     <script type='module' src="tiles.js"></script>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+      #canvas-container {
+        display: flex;
+      }
+      #canvas {
+        border: 1px solid black;
+      }
+      #control-panel {
+        background-color: #f0f0f0;
+        padding: 10px;
+      }
+    </style>
   </head>
   <body>
-    <main>
-    </main>
+    <div id "canvas-container">
+      <canvas id="canvas"></canvas>
+      <div id="control-panel">
+        <button id="color-button">Change Color ig</button>
+      </div>
+    </div>
   </body>
+</html>
+-->
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+		<meta http-equiv="content-language" content="en"/>
+		<meta name="author" content="Tiles Experiments"/>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.7.0/lib/p5.js"></script>
+    <script type='module' src="tiles.js"></script>
+		<title>Tiles Experiments</title>
+    <!--base href="https://www.holos.works/"/>-->
+    <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      background-color: #24252A;
+    }
+
+    li, a, button {
+      font-family: sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      color: #edf0f1;
+      text-decoration: none;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      padding:  10px 0px 20px 12px;
+    }
+
+    .nav-links {
+      list-style: none;
+    }
+    .nav-links li {
+      display: inline-block;
+      padding: 0px 10px;
+    }
+    
+    section h1 {
+      padding: 0px 0px 0px 20px;
+      color: #edf0f1;
+    }
+
+    section ul {
+      padding: 0px 0px 0px 40px;
+    }
+
+    #workspace {
+      display: flex;
+      justify-contet: center;
+      padding: 20px;
+    }
+
+    #canvas-container {
+      border: 1px solid black;
+    }
+
+    .control-panel {
+      background-color: #2A252F;
+      padding: 10px;
+    }
+
+    .control-panel #param {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      color: #edf0f1;
+    }
+
+    .control-panel #param label {
+      display: block;
+      padding: 0px 0px 5px 0px;
+      margin-botton: 10px;
+    }
+
+    .control-panel #param input {
+      background-color: #edf0a1;
+    }
+    .control-panel #param select {
+      background-color: #edf0a1;
+    }
+
+    .control-panel #param input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+
+    .control-panel #param input[type="number"] {
+      -moz-appearance: textfield;
+    }
+    </style>
+	</head>
+	<body>
+		<header>
+      <!--<img class="logo" src="" alt="logo">-->
+			<nav>
+				<ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Other Experiments</a></li>
+				</ul>
+			</nav>
+		</header>
+		<section>
+			<h1>Tiles</h1>
+      <div id="workspace">
+        <div id="canvas-container">
+        </div>
+        <div class="control-panel">
+          <div id="param">
+            <label for="row-param">Number of Rows</label>
+            <input type="number" id="row-param" name="row-param">
+          </div>
+          <div id="param">
+          <label for="palette-param">Colour Palette</label>
+            <select id="palette-param" name="palette-param">
+              <option value="forest_tones">forest tones</option>
+              <option value="blue_tiles">blue tiles</option>
+              <option value="pastel_rainbow">pastel rainbow</option>
+              <option value="high_contrast">high contrast</option>
+            </select>
+          </div>
+          <div id="param">
+            <label for="max-update-freq-param">Maximum Update Frequency</label>
+            <input type="number" id="max-update-freq-param" name="max-update-freq-param">
+          </div>
+          <div id="param">
+            <label for="trans-mu-param">Transition Rate Mean</label>
+            <input type="number" id="trans-mu-param" name="trans-mu-param">
+          </div>
+          <div id="param">
+            <label for="trans-sigma-param">Transition Rate Standard Deviation</label>
+            <input type="number" id="trans-sigma-param" name="trans-sigma-param">
+          </div>
+        </div>
+      </div>
+		</section>
+		<section id="Related">
+			<h1>Related Projects</h1>
+			<ul>
+				<li><a href="https://ppuzzl.com">PPUZZL Group</a></li>
+				<li><a href="https://miris-project.net">MiRiS Project</a></li>
+				<li><a href="https://graphers.dev">Graphers</a></li>
+				<li><a href="https://senggack.dev">Project SengGack</a></li>
+			</ul>
+		</section>
+    <!--<section id="Contact">
+			<h1>Contact Information</h1>
+			<address>
+				<dl>
+					<dt>GitHub</dt>
+						<dd><a href="https://github.com/HolosDev">HolosDev</a></dd>
+					<dt>GitLab</dt>
+            <dd><a href="https://gitlab.com/HolosDev">HolosDev</a></dd>
+					<dt>Development</dt>
+						<dd><s>developer [at] holos [dot] dev</s></dd>
+					<dt>Technical Support</dt>
+						<dd><s>support [at] holos [dot] dev</s></dd>
+				</dl>
+			</address>
+    </section>-->
+		<footer>
+			<nav>
+			</nav>
+		</footer>
+	</body>
 </html>

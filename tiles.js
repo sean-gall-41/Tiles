@@ -23,12 +23,13 @@ import {
 } from './utils.js';
 
 // local mutable global. all of this is v hacky
+let canvas;
 let gridColors;
 let squareTransRates;
 
 window.setup = () => {
-  createCanvas(WIN_WIDTH, WIN_HEIGHT);
- 
+  canvas = createCanvas(WIN_WIDTH, WIN_HEIGHT);
+  canvas.parent('canvas-container');
   gridColors = initGridColorsUniform(
     NUM_ROWS, NUM_COLS, SQUARE_SIZE, CHOSEN_PALETTE
   );
