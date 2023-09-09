@@ -7,7 +7,7 @@ import {
   FR_UPDATE_FREQ_RATIO,
   NUM_TO_UPDATE,
   SQUARE_SIZE
-} from './globals.js';
+} from './params.js';
 
 /*
   * returns a random number in the range [min, max)
