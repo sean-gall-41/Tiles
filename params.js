@@ -10,12 +10,12 @@ const COLOR_PALETTES = {
   "high_contrast": ["#000000", "#14213D", "#FCA311", "#E4E4E4", "#FFFFFF"]
 };
 
-let num_rows = 200;
-let num_cols = 200;
-let square_size = WIN_WIDTH / num_rows;
+let numRows = 200;
+let numCols = 200;
+let squareSize = WIN_WIDTH / numRows;
 
-let chosen_palette = COLOR_PALETTES["high_contrast"];
-let max_update_freq = 15.0;
+let chosenPalette = COLOR_PALETTES["high_contrast"];
+let maxUpdateFreq = 15.0;
 
 let saveFramesArr = [];
 
@@ -23,10 +23,10 @@ export {
   WIN_WIDTH,
   WIN_HEIGHT,
   FRAME_RATE,
-  num_rows,
-  num_cols,
-  square_size,
-  chosen_palette,
-  max_update_freq
+  numRows,
+  numCols,
+  squareSize,
+  chosenPalette,
+  maxUpdateFreq
 };
 

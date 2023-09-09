@@ -1,9 +1,8 @@
 import {
   FRAME_RATE,
-  num_rows,
-  num_cols,
-  square_size,
-  chosen_palette
+  numRows,
+  numCols,
+  chosenPalette
 } from './params.js';
 
 /*
@@ -105,7 +104,7 @@ function rowMaxColor(row, maxNumRows, paletteLength) {
 function specialGridInitFunc(
   numRows, numCols, squareSize, chosenPalette) {
   let squareColor;
-  let gridColors = Array(num_rows).fill().map(() => Array(num_cols));
+  let gridColors = Array(numRows).fill().map(() => Array(numCols));
   noStroke();
   // Draw the grid of squares
   for (let y = 0; y < numRows; y++) {
@@ -147,7 +146,7 @@ function initGridColorsGauss(
   let mu = Math.floor(chosenPalette.length / 2);
   let sigma = mu / 2;
   let squareColor;
-  let gridColors = Array(num_rows).fill().map(() => Array(num_cols));
+  let gridColors = Array(numRows).fill().map(() => Array(numCols));
   noStroke();
   // Draw the grid of squares
   for (let y = 0; y < numRows; y++) {
