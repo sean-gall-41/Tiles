@@ -29,13 +29,18 @@ let play = false;
 
 const togglePlayBtn = document.getElementById('start-btn')
 const resetBtn = document.getElementById('reset-btn')
+const numRowsElem = document.getElementById('row-param');
+const paletteParamElem = document.getElementById('palette-param');
+const maxUpdateFreqElem = document.getElementById('max-update-freq-param');
+const transMuElem = document.getElementById('trans-mu-param');
+const transSigElem = document.getElementById('trans-sigma-param');
 
 const initUserParams = (params) => {
-  const numRowsVal = Number(document.getElementById('row-param').value);
-  const paletteParamVal = document.getElementById('palette-param').value;
-  const maxUpdateFreqVal = Number(document.getElementById('max-update-freq-param').value);
-  const transMuVal = Number(document.getElementById('trans-mu-param').value);
-  const transSigVal = Number(document.getElementById('trans-sigma-param').value);
+  const numRowsVal = Number(numRowsElem.value);
+  const paletteParamVal = paletteParamElem.value;
+  const maxUpdateFreqVal = Number(maxUpdateFreqElem.value);
+  const transMuVal = Number(transMuElem.value);
+  const transSigVal = Number(transSigElem.value);
 
   if (numRowsVal > 0) {
     params['num-rows'] = numRowsVal;
@@ -68,6 +73,46 @@ const initUserParams = (params) => {
   } else {
     console.log('std dev of cell transition rate must be greater than zero and less than max rate!');
     return;
+  }
+};
+
+const updateUserParams = (event) => {
+  const targetId = event.target.id;
+  const updateValue = event.target.value;
+  switch (targetId) {
+    case 'row-param':
+      userParams['num-rows'] = Number(updateValue);
+      userParams['num-cols'] = userParams['num-rows'];
+      userParams['square-size'] = WIN_WIDTH / userParams['num-rows'];
+      gridColors = initGridColorsUniform(
+        userParams['num-rows'], userParams['num-cols'], userParams['square-size'],
+        userParams['chosen-palette']);
+      break;
+    case 'palette-param':
+      userParams['chosen-palette'] = COLOR_PALETTES[updateValue];
+      gridColors = initGridColorsUniform(
+        userParams['num-rows'], userParams['num-cols'], userParams['square-size'],
+        userParams['chosen-palette']);
+      break;
+    case 'max-update-freq-param':
+      userParams['max-update-rate'] = updateValue;
+      break;
+    case 'trans-mu-param':
+      userParams['mu-trans-rate'] = Number(updateValue);
+      squareTransRates = getGaussRandNums(
+        userParams['mu-trans-rate'], userParams['sigma-trans-rate'],
+        userParams['num-rows'] * userParams['num-cols']
+      );
+      break;
+    case 'trans-sigma-param':
+      userParams['sigma-trans-rate'] = Number(updateValue);
+      squareTransRates = getGaussRandNums(
+        userParams['mu-trans-rate'], userParams['sigma-trans-rate'],
+        userParams['num-rows'] * userParams['num-cols']
+      );
+      break;
+    default:
+      console.log("something went horribly wrong in update userparams")
   }
 };
 
@@ -114,4 +159,10 @@ const onReset = () => {
 
 togglePlayBtn.addEventListener("click", onTogglePlay);
 resetBtn.addEventListener("click", onReset);
+
+numRowsElem.addEventListener("change", updateUserParams);
+paletteParamElem.addEventListener("change", updateUserParams);
+maxUpdateFreqElem.addEventListener("change", updateUserParams);
+transMuElem.addEventListener("change", updateUserParams);
+transSigElem.addEventListener("change", updateUserParams);
 
