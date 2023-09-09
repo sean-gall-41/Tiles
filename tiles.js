@@ -1,15 +1,12 @@
 import {
   WIN_WIDTH,
   WIN_HEIGHT,
-  NUM_ROWS,
-  NUM_COLS,
-  CHOSEN_PALETTE,
   FRAME_RATE,
-  UPDATE_FREQ,
-  MAX_UPDATE_FREQ,
-  FR_UPDATE_FREQ_RATIO,
-  NUM_TO_UPDATE,
-  SQUARE_SIZE
+  num_rows,
+  num_cols,
+  square_size,
+  chosen_palette,
+  max_update_freq
 } from './params.js';
 
 import {
@@ -35,10 +32,10 @@ window.setup = () => {
   canvas = createCanvas(WIN_WIDTH, WIN_HEIGHT);
   canvas.parent('canvas-container');
   gridColors = initGridColorsUniform(
-    NUM_ROWS, NUM_COLS, SQUARE_SIZE, CHOSEN_PALETTE
+    num_rows, num_cols, square_size, chosen_palette
   );
   squareTransRates = getGaussRandNums(
-    MAX_UPDATE_FREQ / 32, MAX_UPDATE_FREQ / 4, NUM_ROWS * NUM_COLS
+    max_update_freq / 32, max_update_freq / 4, num_rows * num_cols
   );
   frameRate(FRAME_RATE);
 }
@@ -46,7 +43,7 @@ window.setup = () => {
 window.draw = () => {
   if (play) {
     updateSquaresColorsPoissRates(
-      gridColors, squareTransRates, CHOSEN_PALETTE, -1, NUM_ROWS, NUM_COLS, SQUARE_SIZE
+      gridColors, squareTransRates, chosen_palette, -1, num_rows, num_cols, square_size
     );
   }
 }

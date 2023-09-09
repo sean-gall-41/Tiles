@@ -1,8 +1,7 @@
 const WIN_WIDTH = 700;
 const WIN_HEIGHT = 700;
 
-const NUM_ROWS = 200;
-const NUM_COLS = 200;
+const FRAME_RATE = 30; // 30Hz
 
 const COLOR_PALETTES = {
   "forest_tones": ["#dad7cd","#a3b18a","#588157","#3a5a40","#344e41"],
@@ -11,27 +10,23 @@ const COLOR_PALETTES = {
   "high_contrast": ["#000000", "#14213D", "#FCA311", "#E4E4E4", "#FFFFFF"]
 };
 
-const CHOSEN_PALETTE = COLOR_PALETTES["high_contrast"];
-const FRAME_RATE = 30; // 30Hz
-const UPDATE_FREQ = 5.0; // 1Hz
-const MAX_UPDATE_FREQ = 15.0;
-const FR_UPDATE_FREQ_RATIO = Math.floor(FRAME_RATE / UPDATE_FREQ);
-const NUM_TO_UPDATE = 1;
-const SQUARE_SIZE = WIN_WIDTH / NUM_ROWS;
+let num_rows = 200;
+let num_cols = 200;
+let square_size = WIN_WIDTH / num_rows;
+
+let chosen_palette = COLOR_PALETTES["high_contrast"];
+let max_update_freq = 15.0;
 
 let saveFramesArr = [];
 
 export {
   WIN_WIDTH,
   WIN_HEIGHT,
-  NUM_ROWS,
-  NUM_COLS,
-  CHOSEN_PALETTE,
   FRAME_RATE,
-  UPDATE_FREQ,
-  MAX_UPDATE_FREQ,
-  FR_UPDATE_FREQ_RATIO,
-  NUM_TO_UPDATE,
-  SQUARE_SIZE,
+  num_rows,
+  num_cols,
+  square_size,
+  chosen_palette,
+  max_update_freq
 };
 
