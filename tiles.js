@@ -52,7 +52,7 @@ const initUserParams = (params) => {
     return;
   }
   if (maxUpdateFreqVal > 0.0 || maxUpdateFreqVal <= 15.0) {
-    params['max-update-val'] = maxUpdateFreqVal;
+    params['max-update-rate'] = maxUpdateFreqVal;
   } else {
     console.log('maximum update frequency must be in range (0, 15]');
     return;
@@ -73,13 +73,15 @@ const initUserParams = (params) => {
 
 window.setup = () => {
   initUserParams(userParams);
+  console.log(userParams);
   canvas = createCanvas(WIN_WIDTH, WIN_HEIGHT);
   canvas.parent('canvas-container');
   gridColors = initGridColorsUniform(
-    numRows, numCols, squareSize, chosenPalette
-  );
+    userParams['num-rows'], userParams['num-cols'], userParams['square-size'],
+    userParams['chosen-palette']);
   squareTransRates = getGaussRandNums(
-    maxUpdateFreq / 32, maxUpdateFreq / 4, numRows * numCols
+    userParams['mu-trans-rate'], userParams['sigma-trans-rate'],
+    userParams['num-rows'] * userParams['num-cols']
   );
   frameRate(FRAME_RATE);
 }
@@ -87,7 +89,8 @@ window.setup = () => {
 window.draw = () => {
   if (play) {
     updateSquaresColorsPoissRates(
-      gridColors, squareTransRates, chosenPalette, -1, numRows, numCols, squareSize
+      gridColors, squareTransRates, userParams['chosen-palette'],
+      -1, userParams['num-rows'], userParams['num-cols'], userParams['square-size'] 
     );
   }
 }

@@ -1,6 +1,5 @@
 import {
   FRAME_RATE,
-  userParams,
   numRows,
   numCols,
   chosenPalette
