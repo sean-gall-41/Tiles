@@ -2,6 +2,8 @@ import {
   WIN_WIDTH,
   WIN_HEIGHT,
   FRAME_RATE,
+  COLOR_PALETTES,
+  userParams,
   numRows,
   numCols,
   squareSize,
@@ -28,7 +30,49 @@ let play = false;
 const togglePlayBtn = document.getElementById('start-btn')
 const resetBtn = document.getElementById('reset-btn')
 
+const initUserParams = (params) => {
+  const numRowsVal = Number(document.getElementById('row-param').value);
+  const paletteParamVal = document.getElementById('palette-param').value;
+  const maxUpdateFreqVal = Number(document.getElementById('max-update-freq-param').value);
+  const transMuVal = Number(document.getElementById('trans-mu-param').value);
+  const transSigVal = Number(document.getElementById('trans-sigma-param').value);
+
+  if (numRowsVal > 0) {
+    params['num-rows'] = numRowsVal;
+  } else {
+    console.log('number of rows specified is not greater than zero!');
+    return;
+  }
+  params['num-cols'] = params['num-rows'];
+  params['square-size'] = WIN_WIDTH / params['num-rows'];
+  if (paletteParamVal in COLOR_PALETTES) {
+    params['chosen-palette'] = COLOR_PALETTES[paletteParamVal];
+  } else {
+    console.log('Palette Selected does not exist within existing palettes!');
+    return;
+  }
+  if (maxUpdateFreqVal > 0.0 || maxUpdateFreqVal <= 15.0) {
+    params['max-update-val'] = maxUpdateFreqVal;
+  } else {
+    console.log('maximum update frequency must be in range (0, 15]');
+    return;
+  }
+  if (transMuVal > 0 && transMuVal < maxUpdateFreqVal) {
+    params['mu-trans-rate'] = transMuVal;
+  } else {
+    console.log('mean cell transition rate must be greater than zero and less than max rate!');
+    return;
+  }
+  if (transSigVal > 0 && transSigVal < maxUpdateFreqVal) {
+    params['sigma-trans-rate'] = transSigVal;
+  } else {
+    console.log('std dev of cell transition rate must be greater than zero and less than max rate!');
+    return;
+  }
+};
+
 window.setup = () => {
+  initUserParams(userParams);
   canvas = createCanvas(WIN_WIDTH, WIN_HEIGHT);
   canvas.parent('canvas-container');
   gridColors = initGridColorsUniform(
